@@ -1,0 +1,6 @@
+<p>Welcome to our presentation!</p>
+<div class="chapter-nav">
+  @for (chapter of chapters; track chapter; let i = $index) {
+    <button (click)="goToChapter(i)">{{ chapter }}</button>
+  }
+</div>

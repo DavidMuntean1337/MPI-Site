@@ -1,0 +1,22 @@
+@if (post) {
+  <div>
+    <h1>{{ post.title }}</h1>
+    @for (block of post.blocks; track block) {
+      <div>
+        <ng-container [ngSwitch]="block.type">
+          <h2 *ngSwitchCase="'TITLE'">{{ block.value }}</h2>
+          <p *ngSwitchCase="'PARAGRAPH'">{{ block.value }}</p>
+          <p *ngSwitchCase="'DESCRIPTION'"><i>{{ block.value }}</i></p>
+          <p *ngSwitchCase="'AUTHOR'">Written by: {{ block.value }}</p>
+          <ul *ngSwitchCase="'LIST'">
+            @for (item of block.value.split(','); track item.id) {
+              <li>{{ item.trim() }}</li>
+            }
+          </ul>
+          <img *ngSwitchCase="'IMAGE'" [src]="'http://localhost:3000' + block.value" style="max-width: 100%;" />
+        </ng-container>
+      </div>
+    }
+    <p>Created at: {{ format((post.createdAt), 'dd/MM/yyyy HH:mm') }}</p>
+  </div>
+}

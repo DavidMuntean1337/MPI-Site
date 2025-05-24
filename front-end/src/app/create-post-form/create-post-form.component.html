@@ -1,0 +1,76 @@
+<div class="create-post-form">
+  <h1>Create Post</h1>
+  <form>
+    @for (block of post.blocks; track block; let i = $index) {
+      <div>
+        <div [ngSwitch]="block.type">
+
+          <div *ngSwitchCase="'TITLE'">
+            <label>
+              Title:
+              <input type="text" [(ngModel)]="block.value" name="title{{i}}" required />
+            </label>
+          </div>
+
+          <div *ngSwitchCase="'PARAGRAPH'">
+            <label>
+              Paragraph:
+              <textarea [(ngModel)]="block.value" name="paragraph{{i}}" required></textarea>
+            </label>
+          </div>
+
+          <div *ngSwitchCase="'DESCRIPTION'">
+            <label>
+              Description:
+              <textarea [(ngModel)]="block.value" name="description{{i}}" required></textarea>
+            </label>
+          </div>
+
+          <div *ngSwitchCase="'AUTHOR'">
+            <label>
+              Author:
+              <input type="text" [(ngModel)]="block.value" name="author{{i}}" required />
+            </label>
+          </div>
+
+          <div *ngSwitchCase="'IMAGE'">
+            <label>
+              Image:
+              <input type="file" (change)="onFileSelected($event, i)" />
+            </label>
+            @if (block.value) {
+              <img [src]="'http://localhost:3000' + block.value" alt="Image" style="max-width: 200px;" />
+            }
+          </div>
+
+
+
+          <div *ngSwitchCase="'LIST'">
+            <label>
+              List Items (comma separated):
+              <input type="text" [(ngModel)]="block.value" name="list{{i}}" />
+            </label>
+          </div>
+        </div>
+
+        <button type="button" (click)="removeBlock(i)">Remove Block</button>
+        <hr />
+      </div>
+    }
+
+    <label>
+      Add New Block:
+      <select [(ngModel)]="newBlockType" name="newBlockType">
+        <option value="TITLE">Title</option>
+        <option value="PARAGRAPH">Paragraph</option>
+        <option value="DESCRIPTION">Description</option>
+        <option value="AUTHOR">Author</option>
+        <option value="IMAGE">Image</option>
+        <option value="LIST">List</option>
+      </select>
+      <button type="button" (click)="addBlock()">Add Block</button>
+    </label>
+
+    <button type="button" (click)="onCreate()">Create Post</button>
+  </form>
+</div>

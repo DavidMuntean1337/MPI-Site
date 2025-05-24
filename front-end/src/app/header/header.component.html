@@ -1,0 +1,23 @@
+<header class="header">
+  <div class="container">
+    <h1 class="header-title">Header</h1>
+    @if (isAdminRoute()) {
+      <button (click)="goToPostCreation()">Create a post</button>
+    }
+    <div
+      class="buttons"
+      (mouseenter)="hovered = true"
+      (mouseleave)="hovered = false"
+    >
+      <button class="btn-menu">Menu</button>
+      @if (hovered) {
+        <div class="dropdown">
+          <button class="go-to-home" (click)="goToHome()">Home</button>
+          @for (chapter of chapters; track chapter; let i = $index) {
+            <button class="go-to-chapter" (click)="goToChapter(i)">{{ chapter }}</button>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</header>

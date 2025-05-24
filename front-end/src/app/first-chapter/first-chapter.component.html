@@ -1,0 +1,18 @@
+<div class="post-cards">
+  @for (post of posts; track post.id) {
+    <div class="post-card" (click)="goToPost(post.id)">
+      @for (block of post.blocks; track block.id) {
+        <ng-container [ngSwitch]="block.type">
+          <h2 *ngSwitchCase="'TITLE'" class="post-title">{{ block.value }}</h2>
+          <p *ngSwitchCase="'DESCRIPTION'" class="post-description">{{ block.value }}</p>
+          <img
+            *ngSwitchCase="'IMAGE'; first"
+            [src]="'http://localhost:3000' + block.value"
+            class="post-image"
+            alt="Post image"
+          />
+        </ng-container>
+      }
+    </div>
+  }
+</div>
